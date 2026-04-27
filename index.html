@@ -1,28 +1,1465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="assets/css/styles.css"> <!-- Link external CSS file -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>Mohamed Amine Affes | Mechatronics & Robotics Engineer</title>
+  <meta name="description" content="Portfolio of Mohamed Amine Affes — Mechatronics & Robotics Engineer specializing in automation, smart energy systems, and embedded systems. Based in Germany." />
+  <meta name="keywords" content="mechatronics, robotics, automation, embedded systems, smart energy, PLC, Arduino, ESP32, SolidWorks" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Mohamed Amine Affes | Mechatronics & Robotics Engineer" />
+  <meta property="og:description" content="Engineer specializing in automation, smart energy systems, and embedded systems." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://affes950.github.io/my-portfolio/" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────── */
+    :root {
+      --bg:         #0d1117;
+      --bg-2:       #161b22;
+      --bg-3:       #1c2330;
+      --border:     #30363d;
+      --accent:     #58a6ff;
+      --accent-2:   #1f6feb;
+      --accent-glow:rgba(88,166,255,.15);
+      --text:       #e6edf3;
+      --text-2:     #8b949e;
+      --text-3:     #6e7681;
+      --green:      #3fb950;
+      --orange:     #d29922;
+      --nav-h:      64px;
+      --radius:     8px;
+      --radius-lg:  16px;
+      --transition: .2s ease;
+      --max-w:      1100px;
+    }
+
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: #fff; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+    img { max-width: 100%; display: block; }
+
+    ::selection { background: var(--accent-2); color: #fff; }
+
+    /* ─────────────────────────────────────────
+       LAYOUT HELPERS
+    ───────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 96px 0;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-2);
+      max-width: 560px;
+      margin-bottom: 56px;
+    }
+
+    .divider {
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 48px;
+    }
+
+    /* ─────────────────────────────────────────
+       NAVIGATION
+    ───────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(13,17,23,.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      transition: box-shadow var(--transition);
+    }
+
+    nav.scrolled { box-shadow: 0 1px 32px rgba(0,0,0,.4); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -.3px;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-2);
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text); background: var(--bg-3); }
+
+    .nav-cv {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent) !important;
+      border: 1px solid var(--accent-2) !important;
+      padding: 6px 14px !important;
+    }
+    .nav-cv:hover { background: var(--accent-2) !important; color: #fff !important; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      width: 22px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px 24px;
+      z-index: 999;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-2);
+      padding: 10px 12px;
+      border-radius: var(--radius);
+    }
+    .mobile-nav a:hover { color: var(--text); background: var(--bg-3); }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grid background */
+    #home::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: .25;
+      pointer-events: none;
+    }
+
+    /* Radial glow */
+    #home::after {
+      content: '';
+      position: absolute;
+      top: 20%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(88,166,255,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--green);
+      background: rgba(63,185,80,.1);
+      border: 1px solid rgba(63,185,80,.3);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(.8); }
+    }
+
+    .hero-name {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 400;
+      color: var(--text-2);
+      margin-bottom: 20px;
+    }
+    .hero-title strong { color: var(--accent); font-weight: 600; }
+
+    .hero-bio {
+      font-size: 16px;
+      color: var(--text-2);
+      max-width: 520px;
+      margin-bottom: 36px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d1117;
+    }
+    .btn-primary:hover { background: #79c0ff; color: #0d1117; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(88,166,255,.3); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); transform: translateY(-1px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-3);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Hero photo */
+    .hero-photo {
+      width: 280px;
+      height: 280px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .hero-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .hero-photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      background: linear-gradient(135deg, var(--bg-3), var(--bg-2));
+      color: var(--text-3);
+      user-select: none;
+    }
+
+    /* ─────────────────────────────────────────
+       SKILLS
+    ───────────────────────────────────────── */
+    #skills { background: var(--bg-2); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .skill-card:hover { border-color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-2), 0 8px 32px rgba(88,166,255,.08); }
+
+    .skill-card-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .skill-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: rgba(88,166,255,.1);
+      color: var(--accent);
+      border: 1px solid rgba(88,166,255,.2);
+    }
+    .tag.green { background: rgba(63,185,80,.1); color: var(--green); border-color: rgba(63,185,80,.2); }
+    .tag.orange { background: rgba(210,153,34,.1); color: var(--orange); border-color: rgba(210,153,34,.2); }
+    .tag.purple { background: rgba(163,113,247,.1); color: #a371f7; border-color: rgba(163,113,247,.2); }
+
+    /* ─────────────────────────────────────────
+       EXPERIENCE
+    ───────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 6px; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .timeline-item.visible { opacity: 1; transform: translateY(0); }
+
+    .timeline-dot {
+      position: absolute;
+      left: -24px; top: 6px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent-2);
+    }
+
+    .timeline-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: border-color var(--transition);
+    }
+    .timeline-card:hover { border-color: var(--border); box-shadow: 0 4px 24px rgba(0,0,0,.3); }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .timeline-role {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .timeline-company {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .timeline-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-3);
+      white-space: nowrap;
+      background: var(--bg-3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+
+    .timeline-desc ul {
+      margin: 8px 0 0 16px;
+    }
+    .timeline-desc ul li { margin-bottom: 4px; }
+
+    .timeline-tags { margin-top: 14px; }
+
+    /* ─────────────────────────────────────────
+       PROJECTS
+    ───────────────────────────────────────── */
+    #projects { background: var(--bg-2); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .project-card.visible { opacity: 1; transform: translateY(0); }
+    .project-card:hover { border-color: var(--accent-2); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+
+    .project-image {
+      height: 180px;
+      background: var(--bg-2);
+      overflow: hidden;
+      position: relative;
+    }
+    .project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .project-card:hover .project-image img { transform: scale(1.04); }
+
+    .project-image-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
+    }
+
+    .project-body { padding: 20px; }
+
+    .project-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-3);
+      margin-bottom: 6px;
+    }
+
+    .project-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    /* ─────────────────────────────────────────
+       EDUCATION
+    ───────────────────────────────────────── */
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .edu-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .edu-card:hover { border-color: var(--accent-2); }
+    .edu-card.current { border-color: rgba(63,185,80,.4); }
+    .edu-card.current::before {
+      content: 'Current';
+      position: absolute;
+      top: 16px; right: 16px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--green);
+      background: rgba(63,185,80,.1);
+      border: 1px solid rgba(63,185,80,.3);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .edu-icon { font-size: 32px; margin-bottom: 14px; }
+
+    .edu-degree {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      padding-right: 56px;
+    }
+
+    .edu-school {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .edu-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    /* ─────────────────────────────────────────
+       CONTACT
+    ───────────────────────────────────────── */
+    #contact { background: var(--bg-2); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .contact-info p {
+      color: var(--text-2);
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      transition: border-color var(--transition), background var(--transition);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .contact-link:hover { border-color: var(--accent-2); background: var(--accent-glow); color: var(--text); }
+    .contact-link-icon { font-size: 18px; }
+
+    /* Contact form */
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-2);
+    }
+
+    .form-input,
+    .form-textarea {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      width: 100%;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: var(--text-3); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+    }
+    .footer-text {
+      font-size: 13px;
+      color: var(--text-3);
+    }
+    .footer-text span { color: var(--accent); }
+
+    /* Back to top */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      width: 40px; height: 40px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--text-2);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition), border-color var(--transition), color var(--transition);
+      z-index: 900;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: all; }
+    .back-to-top:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─────────────────────────────────────────
+       FADE-IN ANIMATIONS
+    ───────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 72px 0; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { gap: 20px; flex-wrap: wrap; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      body { font-size: 15px; }
+      .hero-actions { flex-direction: column; }
+      .btn { justify-content: center; }
+    }
+
+    /* ─────────────────────────────────────────
+       PRINT
+    ───────────────────────────────────────── */
+    @media print {
+      nav, .back-to-top, .hero-actions, .contact-form { display: none; }
+      body { background: #fff; color: #000; }
+      section { padding: 32px 0; }
+    }
+  </style>
 </head>
 <body>
-<section class="hero">
-    <img src="assets/images/profile.png" alt="Your Name" class="profile-pic">
-    <h1>Mohamed Amine Affes</h1>
-    <p>Mechatronics & Automation | Robotics | Smart Energy Solutions</p>
-</section>
 
-    <nav>
-    <a href="index.html">Home</a> |
-    <a href="experience.html">Experience</a> |
-    <a href="projects.html">Projects</a> |
-    <a href="education.html">Education</a> |
-    <a href="cv.pdf" target="_blank">Download CV</a>
-    </nav>
-<section class="hero">
-    <h1>Welcome to My Portfolio</h1>
-    <p>This is my personal website.</p>
-</section>
+  <!-- ── NAVIGATION ── -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="nav-logo">affes<span>.dev</span></a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="cv.pdf" target="_blank" rel="noopener" class="nav-cv">Download CV</a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="#home">Home</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+    <a href="cv.pdf" target="_blank" rel="noopener" style="color:var(--accent)">Download CV ↗</a>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section id="home">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-badge">Available for new opportunities</div>
+
+          <h1 class="hero-name">Mohamed Amine<br>Affes</h1>
+
+          <p class="hero-title">
+            <strong>Mechatronics &amp; Robotics Engineer</strong><br>
+            Automation · Smart Energy · Embedded Systems
+          </p>
+
+          <p class="hero-bio">
+            M.Sc. candidate in Mechatronics &amp; Robotics at Hochschule Schmalkalden, Germany.
+            I design intelligent systems at the intersection of hardware and software — from PLC-controlled
+            industrial lines to solar-hydrogen hybrid energy solutions. I bring hands-on engineering
+            experience from Volkswagen Group, Marelli, and a renewable energy startup.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            <a href="cv.pdf" target="_blank" rel="noopener" class="btn btn-outline">Download CV ↗</a>
+          </div>
+
+          <div class="hero-stats">
+            <div>
+              <div class="stat-value">6+</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div>
+              <div class="stat-value">5</div>
+              <div class="stat-label">Companies</div>
+            </div>
+            <div>
+              <div class="stat-value">3+</div>
+              <div class="stat-label">Years Industry Exp.</div>
+            </div>
+            <div>
+              <div class="stat-value">2</div>
+              <div class="stat-label">Master's Degrees</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-photo">
+          <img src="assets/images/profile.png" alt="Mohamed Amine Affes — Mechatronics & Robotics Engineer"
+               onerror="this.parentElement.innerHTML='<div class=\'hero-photo-placeholder\'>👨‍💻</div>'" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section id="skills">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Expertise</p>
+        <h2 class="section-title">Technical Skills</h2>
+        <p class="section-subtitle">A cross-disciplinary toolkit spanning embedded systems, industrial automation, and sustainable energy engineering.</p>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-card fade-in">
+          <div class="skill-card-icon">⚙️</div>
+          <div class="skill-card-title">Industrial Automation</div>
+          <div class="tag-list">
+            <span class="tag">PLC Programming</span>
+            <span class="tag">TIA Portal</span>
+            <span class="tag">SCADA</span>
+            <span class="tag">HMI</span>
+            <span class="tag">Sensor Integration</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-in">
+          <div class="skill-card-icon">🤖</div>
+          <div class="skill-card-title">Embedded Systems</div>
+          <div class="tag-list">
+            <span class="tag">Arduino</span>
+            <span class="tag">ESP32</span>
+            <span class="tag">C / C++</span>
+            <span class="tag">Motor Control</span>
+            <span class="tag">Sensor Networks</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-in">
+          <div class="skill-card-icon">🌱</div>
+          <div class="skill-card-title">Renewable Energy</div>
+          <div class="tag-list">
+            <span class="tag green">Solar Systems</span>
+            <span class="tag green">Solar Tracking</span>
+            <span class="tag green">Hydrogen Storage</span>
+            <span class="tag green">Hybrid Systems</span>
+            <span class="tag green">Energy Simulation</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-in">
+          <div class="skill-card-icon">📐</div>
+          <div class="skill-card-title">Design & Prototyping</div>
+          <div class="tag-list">
+            <span class="tag orange">SolidWorks</span>
+            <span class="tag orange">3D Printing</span>
+            <span class="tag orange">CAD Modeling</span>
+            <span class="tag orange">Rapid Prototyping</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-in">
+          <div class="skill-card-icon">🔧</div>
+          <div class="skill-card-title">Automotive</div>
+          <div class="tag-list">
+            <span class="tag purple">Electrical Diagnostics</span>
+            <span class="tag purple">Quality Control</span>
+            <span class="tag purple">Assembly Systems</span>
+            <span class="tag purple">Component Testing</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-in">
+          <div class="skill-card-icon">📊</div>
+          <div class="skill-card-title">Tools & Other</div>
+          <div class="tag-list">
+            <span class="tag">Microsoft Excel</span>
+            <span class="tag">Data Analysis</span>
+            <span class="tag">Project Management</span>
+            <span class="tag">German</span>
+            <span class="tag">English</span>
+            <span class="tag">Arabic</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Career</p>
+        <h2 class="section-title">Work Experience</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Automotive Lighting Assembly Technician</div>
+                <div class="timeline-company">Automotive Lighting Brotterode GmbH (Marelli)</div>
+              </div>
+              <span class="timeline-date">Nov 2021 – Jan 2024</span>
+            </div>
+            <div class="timeline-desc">
+              <ul>
+                <li>Tested and troubleshot electrical components in automotive lighting systems for Marelli, a Tier-1 automotive supplier.</li>
+                <li>Operated hand tools and automated machinery for precision assembly of lighting modules.</li>
+                <li>Conducted systematic electrical quality control checks ensuring compliance with automotive standards.</li>
+              </ul>
+            </div>
+            <div class="timeline-tags tag-list">
+              <span class="tag">Electrical Testing</span>
+              <span class="tag">Quality Control</span>
+              <span class="tag">Automated Assembly</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Systems Optimization Engineer</div>
+                <div class="timeline-company">Ecovation — Renewable Energy Startup</div>
+              </div>
+              <span class="timeline-date">Jun 2021 – May 2022</span>
+            </div>
+            <div class="timeline-desc">
+              <ul>
+                <li>Optimized solar energy production for solar-powered greenhouses in Germany through energy yield simulations.</li>
+                <li>Developed intelligent solar tracking systems using sensors to maximize panel efficiency.</li>
+                <li>Integrated hydrogen storage solutions to convert excess solar energy into green hydrogen.</li>
+                <li>Designed and simulated hybrid renewable systems combining solar, wind, and hydro sources.</li>
+                <li>Managed supplier relationships for component selection, balancing cost and reliability.</li>
+                <li>Collaborated with international, interdisciplinary teams on technical architecture and business strategy.</li>
+              </ul>
+            </div>
+            <div class="timeline-tags tag-list">
+              <span class="tag green">Solar Energy</span>
+              <span class="tag green">Hydrogen Storage</span>
+              <span class="tag green">Energy Simulation</span>
+              <span class="tag green">Hybrid Systems</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Automotive Mechanic Intern</div>
+                <div class="timeline-company">Volkswagen Group (VW · Audi · Škoda)</div>
+              </div>
+              <span class="timeline-date">Jun 2019 – Jul 2019</span>
+            </div>
+            <div class="timeline-desc">
+              <ul>
+                <li>Performed daily vehicle inspections identifying wear, damage, and electrical malfunctions across VW Group brands.</li>
+                <li>Carried out mechanical and electrical diagnostics using specialized automotive diagnostic equipment.</li>
+                <li>Executed component repair and replacement including engines, brakes, and transmissions.</li>
+                <li>Collaborated with senior mechanics and technicians on complex multi-system issues.</li>
+              </ul>
+            </div>
+            <div class="timeline-tags tag-list">
+              <span class="tag purple">Automotive Diagnostics</span>
+              <span class="tag purple">Mechanical Repair</span>
+              <span class="tag purple">Electrical Systems</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Event Planner &amp; Organizer</div>
+                <div class="timeline-company">AIESEC</div>
+              </div>
+              <span class="timeline-date">Jun 2018 – Nov 2018</span>
+            </div>
+            <div class="timeline-desc">
+              <ul>
+                <li>Developed event goals and frameworks aligned with UN Sustainable Development Goals.</li>
+                <li>Managed full logistical operations: venue selection, transportation, and scheduling.</li>
+                <li>Coordinated speakers, stakeholders, and volunteer teams across multi-day events.</li>
+                <li>Created and maintained event timelines and production schedules.</li>
+              </ul>
+            </div>
+            <div class="timeline-tags tag-list">
+              <span class="tag orange">Event Management</span>
+              <span class="tag orange">UN SDGs</span>
+              <span class="tag orange">Team Coordination</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Automotive Mechanic Intern</div>
+                <div class="timeline-company">TIMI MOTO</div>
+              </div>
+              <span class="timeline-date">Jun 2017 – Aug 2017</span>
+            </div>
+            <div class="timeline-desc">
+              <ul>
+                <li>Performed routine vehicle maintenance including oil changes and tire rotations.</li>
+                <li>Repaired and replaced key components — engines, brakes, and suspension systems.</li>
+                <li>Worked alongside senior mechanics to diagnose and resolve vehicle problems.</li>
+                <li>Conducted safety testing and functionality verification after all repairs.</li>
+              </ul>
+            </div>
+            <div class="timeline-tags tag-list">
+              <span class="tag">Vehicle Maintenance</span>
+              <span class="tag">Safety Testing</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section id="projects">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Portfolio</p>
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">A selection of engineering projects spanning robotics, industrial automation, embedded systems, and smart home technology.</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/images/XY.jpg" alt="ESP32-based XY Pen Plotter machine"
+                 onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>🖊️</div>'" />
+          </div>
+          <div class="project-body">
+            <div class="project-date">Oct 2023 – Jul 2024</div>
+            <h3 class="project-title">ESP32-based XY Pen Plotter</h3>
+            <p class="project-desc">
+              Designed and built a fully functional XY pen plotter from scratch using an ESP32 microcontroller.
+              Combined SolidWorks-modeled frame components with custom 3D-printed parts to achieve precise
+              motor-controlled plotting on a 2-axis system.
+            </p>
+            <div class="tag-list">
+              <span class="tag">ESP32</span>
+              <span class="tag">Arduino</span>
+              <span class="tag orange">SolidWorks</span>
+              <span class="tag orange">3D Printing</span>
+              <span class="tag">Motor Control</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/images/mix.jpg" alt="Automated Liquid Mixing and Bottling System with PLC control"
+                 onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>🏭</div>'" />
+          </div>
+          <div class="project-body">
+            <div class="project-date">Jan 2019 – Feb 2019</div>
+            <h3 class="project-title">Automated Liquid Mixing &amp; Bottling System</h3>
+            <p class="project-desc">
+              Developed a PLC-controlled industrial system for automated liquid mixing and bottle filling.
+              Programmed using Siemens TIA Portal with a SCADA interface for real-time monitoring and
+              level sensors for precise fill control.
+            </p>
+            <div class="tag-list">
+              <span class="tag">TIA Portal</span>
+              <span class="tag">PLC</span>
+              <span class="tag">SCADA</span>
+              <span class="tag">Level Sensors</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/images/smart.jpg" alt="SMART House home automation prototype"
+                 onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>🏠</div>'" />
+          </div>
+          <div class="project-body">
+            <div class="project-date">Jun 2018 – Jul 2018</div>
+            <h3 class="project-title">SMART House Automation Prototype</h3>
+            <p class="project-desc">
+              Built a home automation prototype integrating multiple Arduino microcontrollers and sensor networks
+              to control lighting, temperature, and security systems — demonstrating scalable IoT architecture
+              for residential applications.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Arduino</span>
+              <span class="tag">Sensor Networks</span>
+              <span class="tag">IoT</span>
+              <span class="tag">Home Automation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/images/floppy.jpg" alt="Musical Floppy Drives sound installation"
+                 onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>🎵</div>'" />
+          </div>
+          <div class="project-body">
+            <div class="project-date">Jan 2018 – Jun 2018</div>
+            <h3 class="project-title">Musical Floppy Drives</h3>
+            <p class="project-desc">
+              Created a sound installation by repurposing floppy disk drive stepper motors as musical instruments,
+              controlled via Arduino to generate precise frequencies. A creative demonstration of embedded
+              motor control and signal generation.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Arduino</span>
+              <span class="tag orange">SolidWorks</span>
+              <span class="tag">Motor Control</span>
+              <span class="tag">Signal Generation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/images/force.jpg" alt="Force Hammer interactive game with Arduino"
+                 onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>🔨</div>'" />
+          </div>
+          <div class="project-body">
+            <div class="project-date">Jan 2017 – Jun 2017</div>
+            <h3 class="project-title">Force Hammer Game</h3>
+            <p class="project-desc">
+              Designed and built an interactive force-measurement game using Arduino and custom sensors.
+              Integrated SolidWorks-modeled mechanical components with embedded sensor logic to measure
+              and display impact force in real time.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Arduino</span>
+              <span class="tag orange">SolidWorks</span>
+              <span class="tag">Sensor Integration</span>
+              <span class="tag">Interactive Systems</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/images/sur.jpg" alt="Quality Survey for EUR-ACE Accreditation"
+                 onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>📋</div>'" />
+          </div>
+          <div class="project-body">
+            <div class="project-date">Sep 2018 – Jun 2019</div>
+            <h3 class="project-title">EUR-ACE Accreditation Quality Survey</h3>
+            <p class="project-desc">
+              Led a comprehensive institutional quality survey supporting EUR-ACE engineering accreditation.
+              Collected and analyzed stakeholder feedback using structured data methods in Excel, contributing
+              directly to the program's accreditation outcome.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Data Analysis</span>
+              <span class="tag">Microsoft Excel</span>
+              <span class="tag">Quality Assurance</span>
+              <span class="tag">EUR-ACE</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EDUCATION ── -->
+  <section id="education">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Academic Background</p>
+        <h2 class="section-title">Education</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="education-grid">
+
+        <div class="edu-card current fade-in">
+          <div class="edu-icon">🎓</div>
+          <div class="edu-degree">M.Sc. Mechatronics &amp; Robotics</div>
+          <div class="edu-school">Hochschule Schmalkalden, Germany</div>
+          <div class="edu-date">2022 – Present</div>
+        </div>
+
+        <div class="edu-card fade-in">
+          <div class="edu-icon">🔄</div>
+          <div class="edu-degree">M.Sc. Mechanical Engineering (Exchange)</div>
+          <div class="edu-school">Hochschule Schmalkalden, Germany</div>
+          <div class="edu-date">Oct 2020 – Mar 2022</div>
+        </div>
+
+        <div class="edu-card fade-in">
+          <div class="edu-icon">📚</div>
+          <div class="edu-degree">M.Sc. Electro-Mechanical Engineering</div>
+          <div class="edu-school">ESPRIT — Ecole Superieure Privee d'Ingenierie et de Technologies, Tunisia</div>
+          <div class="edu-date">Sep 2016 – Sep 2022</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Let's Connect</p>
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="contact-info fade-in">
+          <h3>Open to new opportunities</h3>
+          <p>
+            Whether you have a project, a job opportunity, or simply want to connect —
+            I'm always happy to talk engineering, automation, or smart energy systems.
+            I typically respond within 24 hours.
+          </p>
+
+          <a href="https://github.com/affes950" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-icon">💻</span>
+            <span>github.com/affes950</span>
+          </a>
+          <a href="cv.pdf" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-icon">📄</span>
+            <span>Download Full CV (PDF)</span>
+          </a>
+          <div class="contact-link" style="cursor:default">
+            <span class="contact-link-icon">📍</span>
+            <span>Germany</span>
+          </div>
+        </div>
+
+        <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="What would you like to discuss?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="align-self:flex-start">Send Message</button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="container">
+      <p class="footer-text">
+        Designed &amp; built by <span>Mohamed Amine Affes</span> · 2024
+      </p>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- ── SCRIPTS ── -->
+  <script>
+    // ── Nav scroll state ──
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+        backToTop.classList.add('visible');
+      } else {
+        navbar.classList.remove('scrolled');
+        backToTop.classList.remove('visible');
+      }
+
+      // Active nav link
+      const sections = document.querySelectorAll('section[id]');
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 80) current = s.getAttribute('id');
+      });
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+      });
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ── Hamburger ──
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    hamburger.addEventListener('click', () => {
+      const open = hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+      });
+    });
+
+    // ── Scroll animations ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in, .timeline-item, .project-card').forEach(el => observer.observe(el));
+
+    // ── Contact form ──
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = 'var(--green)';
+      btn.disabled = true;
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 4000);
+    }
+
+    // ── Stagger project cards ──
+    document.querySelectorAll('.project-card').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 80}ms`;
+    });
+  </script>
+
 </body>
 </html>
